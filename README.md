@@ -52,7 +52,7 @@ CPENT
    - [Enumeration & Service](1.Penetration%20Test/Penetration%20Test%20-%20Enumeration%20&%20Service.md)
    - [Privilege Escalation](1.Penetration%20Test/Penetration%20Test%20-%20Privilege%20Escalation.md)
 2. OT
-3. IOT
+3. [IOT](./3.IOT/IOT.md)
 4. Pivot & Double Pivot
 5. PWN
 6. AD Penetration Test

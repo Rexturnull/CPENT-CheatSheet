@@ -206,8 +206,7 @@ hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
 ```
 # owaspbwa
 ```bash
-# 忘了這是幹嘛的
-owaspbwa
-
+# 如果看到題目的靶機是這個平臺的，很常用這組密碼，可以試試看
+# https://code.google.com/archive/p/owaspbwa/wikis/UserGuide.wiki
 Pa$$w0rd123
 ```
