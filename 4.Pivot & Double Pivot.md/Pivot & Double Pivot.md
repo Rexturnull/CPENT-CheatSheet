@@ -20,7 +20,6 @@ Parrot
 ```bash
 # eth0 : 192.168.0.18
 # eth1 : 172.19.19.18
-sudo ifconfig eth1 down
 ```
 SSH
 ```bash
@@ -31,7 +30,6 @@ Wordpress
 ```bash
 # eth0 : 192.168.0.24
 # eth1 : 172.19.19.24
-sudo ifconfig eth0 down
 
 sudo nano /var/www/index.html
 #172.19.19.24
