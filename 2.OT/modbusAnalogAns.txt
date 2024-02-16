@@ -1,0 +1,13 @@
+# ModbusAnalog.pcap
+
+Answer the Following Questions:
+
+In transaction ID "3383", What Byte Count is? > 20
+
+In transaction ID "3391", What Length is? > 6 / 23
+
+In transaction ID "3403": What is Value of Register 3 > 65
+
+In transaction ID "3427": What is Value of Data? > 0003
+
+# END
