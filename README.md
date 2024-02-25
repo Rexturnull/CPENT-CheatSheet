@@ -57,7 +57,8 @@ CPENT
 5. [PWN](./5.PWN/)
 6. ADPT
    - [AD](./6.ADPT/AD.md)
-   - [PtT](./6.ADPT/Pass%20the%20Ticket.md)
+   - [Kerberos](./6.ADPT/Kerberos.md)
+7. [WEB RCE](./7.Web%20to%20RCE/Web%20to%20RCE.md)
 
 # Outline
 - VA(Vulnerability Assessment)

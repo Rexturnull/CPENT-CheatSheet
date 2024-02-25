@@ -97,8 +97,15 @@ Configuration  <= 整個Forest不含Domain的設定
 <Domain>
 -------------
 ...
+```
+```
+Windows
+成為DC之前帳號密碼:儲存在帳號資料庫SAM
+成為DC之後帳號密碼:NTDS.dit
 
-
+問題來了成為DC之後原本的Local SAM還在嗎
+   在
+```
 
 
 Windows輸入ADSI Edit就可以看Partition
