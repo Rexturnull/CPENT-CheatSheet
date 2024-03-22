@@ -54,7 +54,7 @@ CPENT
 2. [OT](./2.OT/OT.md)
 3. [IOT](./3.IOT/IOT.md)
 4. [Pivot & Double Pivot](./4.Pivot%20&%20Double%20Pivot/Pivot%20&%20Double%20Pivot.md)
-5. [PWN](./5.PWN/)
+5. [PWN](./5.PWN/PWN.md)
 6. ADPT
    - [AD](./6.ADPT/AD.md)
    - [Kerberos](./6.ADPT/Kerberos.md)
