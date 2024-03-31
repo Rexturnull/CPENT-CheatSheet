@@ -78,7 +78,9 @@ nmap 192.168.0.* -sn -oG -
 nmap 192.168.0.* -sn -oG - | grep Up | cut -d' ' -f2 > ip_list
 
 # Port
-sudo nmap –n –sn –PS22,80,445,3389 192.168.0.1-254 –oG - | grep Up | cut -d' ' -f2 > ip_list
+sudo nmap -n -sn -PS22,80,445,3389 192.168.0.1-254 -oG - | grep Up | cut -d' ' -f2 > ip_list
+
+sudo nmap 192.168.0.* -n -sn -PS22,80,445,3389 -oG > ip_list
 
 # Icmp
 ping -c 1 192.168.0.7
@@ -136,7 +138,7 @@ sudo nmap -sU -p137-139 192.168.0.70  # netbios
 ```
 RustScan
 ```bash
-# 一個快速且暴力的從1掃到65535的工具
+# 一個快速且暴力的TCP從1掃到65535的工具
 # https://github.com/RustScan/RustScan/releases
 
 

@@ -69,6 +69,13 @@ POP %EBP
 RET
 ```
 
+# PEDA
+```bash
+git clone https://github.com/longld/peda.git ~/peda
+echo "source ~/peda/peda.py" >> ~/gdbinit
+echo "DONE! debug your program with gdb and enjoy"
+```
+
 # Challenge
 Lab Enviroment
 ```
@@ -80,4 +87,7 @@ studentpassword
 ```
 1. [crackme0x00a](./Challlenge/1.crackme0x00a.md)
 2. [shellcode](./Challlenge/2.shellcode.md)
-3. [BOF](./Challlenge/3.stack.md)
+3. [BOF](./Challlenge/3.ret2sc.md)
+4. [NX](./Challlenge/4.ret2libc.md)
+5. [Static-ROP](./Challlenge/5.Static-ROP.md)
+6. [ROP](./Challlenge/6.ROP.md)

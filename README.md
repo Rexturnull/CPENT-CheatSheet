@@ -31,6 +31,7 @@ CPENT
    - 選擇題
      - 大約55題選擇題，每大題約8-12題
      - 需要尋找的資訊包含:版本、金鑰、密碼、flag
+   - 滿分 2500
    - 題型
      - AD (500)
      - Binary exploitation + IOT (500)
@@ -92,6 +93,5 @@ Dounle-blind Testing
 
 > AI Security : MITRE ATLAS
 
-> 32bit ROP
 > ESC8
 > AutoRecon

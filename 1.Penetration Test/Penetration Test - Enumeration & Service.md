@@ -15,7 +15,7 @@ WordPress             192.168.0.24
 ---
 
 # SNMP
-SNMP 是一種用於管理和監視網絡設備的協議，通常在路由器、交換機、伺服器等設備上使用
+SNMP 是一種用於管理和監視網絡設備的協議，通常在路由器、交換機、伺服器等設備上使用，UDP161
 ```bash
 sudo nmap 192.168.0.* --open -p161 -sU -oG - | grep Up | cut -d ' ' -f2 > snmp_list
 
@@ -27,6 +27,9 @@ sudo nmap 192.168.0.1 --open -p161
 sudo nmap 192.168.0.1 --open -p161 -sU --reason
 # 觀察:
 # nmap若不加-sU會將Reason : no-response當作沒有開啟
+
+# Scan ip_list
+sudo nmap -sU -p161 --open -n -Pn -iL ip_list.txt -oG > snmp_list
 ```
 snmp-check
 ```bash
@@ -35,7 +38,7 @@ snmp-check 192.168.0.20
 
 snmp-check 192.168.0.22
 ```
-onesixtyone
+onesixtyone SNMP狀態確認器 
 ```bash
 # onesixtyone 通常用於查找社群字串（community strings）或爆破 SNMP v1/v2 的密碼
 
@@ -52,19 +55,30 @@ sudo nmap 192.168.0.20 -p161 -sU -n -Pn --script snmp-win32-users
 Introduction
 ```bash
 # port
-UDP 137,138
+UDP 137 # 名稱解析
+UDP 138 # 服務宣告
+
+一般來說網路架構的底層是Socket (IP:PORT)
+
 
 # NetBIOS 
+微軟之前有一套自己的網路架構底層為NetBIOS
+並透過NetBIOS Name來確定唯一性，16 Char(1-15:Name、16:ServiceID)
 NetBIOS 是指 Network Basic Input/Output System，是一個作業系統級的API
 
-# NetBT
+# NetBT (NetBIOS over TCP/IP)
 NetBT能讓舊有運用NetBIOS API的軟體，能夠在現代TCP/IP網路上繼續運作，即NetBIOS over TCP/IP
 NetBT 需要每台計算機有一個唯一的 NetBIOS 名稱，這通常就是該計算機的Computer Name
+不過這個架構在Win2000就已經結束
 ```
 Detection Windows
 ```bash
 # Cmd
-nbtstat -n   # Local Computer Name
+nbtstat -n                # Local Computer Name
+SERVER2019     <00>       # service.msc -> Workstation service
+SERVER2019     <20>       # service.msc -> Server service
+
+
 nbtstat -a $ComputerName  # 指定host的NetBIOS資訊
 nbtstat -A $IP            # Remote Host的NetBIOS資訊
 ping $ComputerName
@@ -104,10 +118,23 @@ smbclient -U 'Administrator%Pa$$w0rd' //192.168.0.22/c$ -c 'dir'
 ---
 
 # CIFS / SMB
+Intorduction
+```
+TCP SMB - 445
+1. Authentication
+2. File & Print sharing(allow file access)
+3. IPC (inter-process commuication) > RCE
+
+SMB version
+V1 : 
+V2 : 加入Digital Signature，不再發生中間人攻擊
+V3 : 加入Encryption，不怕被側錄封包
+```
 Detect
 ```bash
 # port
 TCP 139,445
+# 差別在於139還是走NetBT 445是真的Socket
 
 nmap -iL -p445 -sVC
 nmap --script smb-os-discovery,smb-protocols
@@ -204,6 +231,7 @@ hydra -t 4 -L <users.txt> -P <passwords.txt> ssh://<ssh_IP>
 hydra -t 4 -l aleksander -P Passwords.txt ssh://192.168.0.70  #dolphin
 hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
 ```
+
 # owaspbwa
 ```bash
 # 如果看到題目的靶機是這個平臺的，很常用這組密碼，可以試試看
