@@ -181,3 +181,7 @@ nmap 192.168.0.7 -sV -p445 -script smb-protocols
 
 ---
 
+# Cheatsheet
+```bash
+sudo nmap -T5 -Pn -A 172.25.170.200
+```

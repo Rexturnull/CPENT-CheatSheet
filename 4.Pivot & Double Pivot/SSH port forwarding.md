@@ -16,12 +16,18 @@ SSH port forwarding
 # Parrot Command
 sudo ssh -L *:80:192.168.0.24:80 administrator@192.168.0.70
 # administrator / Infinit3
+# Not Need Shadow Terminal
+sudo ssh -nNTL *:80:192.168.0.24:80 administrator@192.168.0.70
 
 # Connect
 Parrot web connect to localhost:80
+nc 127.0.0.1 80
 
 # 去觀察各機器之間的連線狀況
 sudo netstat -antp | grep :80
+# :80  => 開在127.0.0.1
+# *:80 => 開在0.0.0.0
+
 # 192.168.0.70
 sudo watch netstat -antp
 ```
@@ -30,20 +36,27 @@ sudo watch netstat -antp
 ![](./SSH%20remote%20port%20forwarding.png)
 ```bash
 # 在remote 開 port
+# 由 Remote Forwarding 和一台對外機器
+# 可以讓你從任何地方連回這個服務
 ```
 ```bash
 # Setting SSH server(70)
+# 基於安全考量， Remote Forwarding 預設都只能夠 bind 在 SSH Server 的 localhost 上
 nano /etc/ssh/sshd_config # GatewayPorts yes
 sudo service ssh restart
 
 # Parrot Command
-ssh administrator@192.168.0.70 -L *:8008:192.168.0.24:80
+ssh administrator@192.168.0.70 -R *:8008:192.168.0.24:80
 
 # Connect
 Parrot web connect to  192.168.0.70:8008
 
 # 去觀察各機器之間的連線狀況
 sudo netstat -antp | grep :80
+```
+Windows
+```bash
+plink.exe -ssh kali@172.27.234.2 -R 445:172.25.170:445
 ```
 
 # Dynamic(proxychains)
@@ -52,13 +65,17 @@ sudo netstat -antp | grep :80
 # Parrot
 whereis proxychains
 cat /usr/bin/proxychains
-# Proxy Server <===> ProxyChains  | API Hooking(6個API 範圍內才可以處理)  忘了什麼意思
+# Proxy Server <===> ProxyChains
+# 不斷追linking後可以發現proxychain的實現方式是用API Hooking(LD_PRELOAD)
+# 再去追原始碼後可以發現API是透過LD_PRELOAD的方式hooking connect()
+# 所以應用程式網路段用的不是用connect寫的則proxychains無法代理
 sudo nano /etc/proxychains.conf
 # sock4 127.0.0.1 9095
 # sock5 127.0.0.1 9095
 
 # 只要連至.18:9050(主機A)的網路流量都可以透過.70(主機B)轉發出去
 ssh -D 9050 administrator@192.168.0.70
+ssh -nNTCD 9050 administrator@192.168.0.70
 
 # Connect
 proxychains curl 192.168.0.24

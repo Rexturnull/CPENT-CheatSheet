@@ -105,11 +105,10 @@ Windows
 
 問題來了成為DC之後原本的Local SAM還在嗎
    在
-```
-
 
 Windows輸入ADSI Edit就可以看Partition
 ```
+
 AD/DS
 ```
 DNS      : 域名系統
@@ -117,6 +116,8 @@ Kerberos : 身份驗證協議
 LDAP     : 輕量級目錄訪問協議
 GC (TCP 3268) : 全域目錄
 ```
+
+
 
 # Penetration
 1. [Recon](./Recon.md)

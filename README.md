@@ -1,6 +1,5 @@
 CPENT 
 ===
-> vin_tang@uuu.com.tw
 
 # Exam
 1. 教材

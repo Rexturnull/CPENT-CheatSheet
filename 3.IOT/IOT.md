@@ -25,12 +25,13 @@ binwalk
 # Find Something
 ```bash
 ### Windows 
-dir /s <FILE_NAME> 2> nul 
-findstr /n /i /s <KEYWORD> *.*
+dir /s <FILE_NAME> 2> nul  #file
+findstr /n /i /s <KEYWORD> *.* #content
 
 ### Linux 
-find / -name <FILE_NAME> -ls 2> /dev/null
-grep -nir <KEYWORD> .
+find / -name <FILE_NAME> -ls 2> /dev/null  #file
+find / -iname <FILE_NAME> 2> /dev/null  #file
+grep -nir <KEYWORD> . #content
 ```
 
 
