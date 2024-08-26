@@ -1,7 +1,6 @@
 Pivot & Double Pivot
 ===
-> 跳板
-> via Port Fowarding / proxy /redirection Tunneling
+> via Port Fowarding / proxy / redirection Tunneling
 
 🔙 [MENU README](../README.md)
 

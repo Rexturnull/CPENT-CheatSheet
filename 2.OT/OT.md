@@ -1,19 +1,22 @@
 OT
 ===
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 
-# What
+# OT
 ```
-SCADA <--Modbus--> Controller <====> 現場
+SCADA <--Modbus--> Controller  <====> 現場
 (量、測、調、控)    (RTU、DCS、PLC)    (機台、設備、設施)
 
 量(Read)調(Write) : 類比訊號
-測控 : 非類比訊號
+測控              : 非類比訊號
 ```
+
+# tcpdump
 ```bash
 # 在 Modbus 通信中，通常是使用 TCP 協定的 502 Port
 tcpdump tcp port 502 -vv -w modbus.cap
+tcpdump -i ens3 port 502 -A -w OT_Dump.pcap
 ```
 
 
@@ -49,7 +52,7 @@ Modbus/TCP
 1. Transaction Identifier：佔2個Byte，用於標示通訊的識別碼
 2. Protocol Identifier   ：佔2個Byte，用於表示 Modbus 協定的版本
 3. Length                ：佔2個Byte，表示後續資料的長度
-4. Unit Identifier：佔1個Byte，用於識別 Modbus 設備或單元
+4. Unit Identifier       ：佔1個Byte，用於識別 Modbus 設備或單元
 ```
 Modbus
 ```
@@ -61,6 +64,6 @@ Modbus
 ```
 
 
-# modbusAnalog
+# ModbusAnalog
 > Try to Analyze modbusAnalog
 > And Try to answaer question in ModbusAnalogAns.txt

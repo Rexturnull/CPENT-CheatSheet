@@ -1,6 +1,6 @@
 IOT
 ===
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 > 韌體拆解
 
@@ -30,6 +30,7 @@ findstr /n /i /s <KEYWORD> *.* #content
 
 ### Linux 
 find / -name <FILE_NAME> -ls 2> /dev/null  #file
+find / -name <FILE_NAME> -print 2>/dev/null #file
 find / -iname <FILE_NAME> 2> /dev/null  #file
 grep -nir <KEYWORD> . #content
 ```

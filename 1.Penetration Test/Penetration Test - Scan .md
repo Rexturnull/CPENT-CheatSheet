@@ -1,6 +1,6 @@
 Penetration Test - Scan
 ===
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 # iLab
 Module 6 
@@ -177,11 +177,4 @@ nmap 192.168.0.7 -p445 -sV -sC
 # -sC  :  ls /usr/share/nmap/scripts
 nmap 192.168.0.7 -p445 -script vulners
 nmap 192.168.0.7 -sV -p445 -script smb-protocols
-```
-
----
-
-# Cheatsheet
-```bash
-sudo nmap -T5 -Pn -A 172.25.170.200
 ```

