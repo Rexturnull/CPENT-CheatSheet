@@ -2,10 +2,6 @@ SSH port forwarding
 ===
 🔙 [MENU README](./Pivot%20&%20Double%20Pivot.md)
 
-# Socket Pair
-```bash
-
-```
 
 # Local
 ![](./SSH%20local%20port%20forwarding.png)

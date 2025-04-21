@@ -204,6 +204,6 @@ sudo iptables -S
 sudo iptables -P INPUT ACCEPT  #允許所有INBOUND
 sudo iptables -P OUTPUT ACCEPT #允許所有OUTBOUND
 
-sudo iptables -F #flush所以有防火牆規則
+sudo iptables -F #flush所有防火牆規則
 # 不建議，因為很多靶機其實預設是全擋
 ```
